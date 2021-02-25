@@ -108,6 +108,58 @@ public class SortingImplementation implements SortingInterface {
     @Override
     public void modifiedQuickSort(Comparable[] arr, int lowindex, int highindex) {
         // FILL ON CODE
+
+        int pivot;
+
+        if (low <= high) {
+
+            pivot = partition(arr, low, high);
+
+            quickSort(arr, low, pivot-1);
+            quickSort(arr, pivot+1, high);
+        }
+
+    }
+
+    public int partition(int[] arr, int low, int high) {
+        int median = (high + low)/2;
+        //System.out.println(arr[median]);
+
+        int[] trio = {arr[low], arr[median], arr[high]};
+
+        int pivot = 0;
+        int pivotIndex = 0;
+
+        if (arr[low] > arr[median] && arr[low] > arr[high]) {
+            pivot = arr[low];
+            pivotIndex = low;
+        }
+        else if (arr[median] > arr[low] && arr[median] > arr[high]) {
+            pivot = arr[median];
+            pivotIndex = median;
+        }
+        else {
+            pivot = arr[high];
+            pivotIndex = high;
+        }
+
+
+        for (int i = low; i <= high; i++) {
+            if (arr[i] > pivot && i < pivotIndex) {
+                int temp = arr[i];
+                arr[i] = pivot;
+                arr[pivotIndex] = temp;
+                pivotIndex = i;
+            }
+            else if (arr[i] < pivot && i > pivotIndex) {
+                int temp = arr[i];
+                arr[i] = pivot;
+                arr[pivotIndex] = temp;
+                pivotIndex = i;
+            }
+        }
+        return pivotIndex;
+
     }
 
 
